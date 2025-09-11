@@ -17,6 +17,7 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
+from django.views.generic.base import RedirectView
 
 from django.contrib import admin
 from django.urls import path
@@ -28,5 +29,6 @@ urlpatterns = [
         'api/docs/',
         SpectacularSwaggerView.as_view(url_name='api-schema'),
         name='api-docs',
-    )
+    ),
+    path('', RedirectView.as_view(url='/api/docs/', permanent=False))
 ]
