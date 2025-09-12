@@ -1,7 +1,11 @@
-
 [flake8]
 exclude =
-  migrations,
-  __pycache__,
-  manage.py,
-  settings.py
+    .venv,
+    migrations,
+    .git,
+    .hg,
+    __pycache__
+max-line-length = 91
+extend-ignore = E203
+ # alternative ignore E501=line too long
+ # TODO? W503=break after binary operator
