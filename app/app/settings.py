@@ -16,8 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#parse_comments=True
-#interpolate=True
 env = environ.Env()
 env.prefix = 'RECIPE_APP_'
 env.escape_proxy = True
