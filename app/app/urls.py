@@ -21,7 +21,7 @@ from drf_spectacular.views import (
 from django.views.generic.base import RedirectView
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +32,5 @@ urlpatterns = [
         name='api-docs',
     ),
     path('', RedirectView.as_view(url='/api/docs/', permanent=False)),
+    path('api/user/', include('user.urls')),
 ]
