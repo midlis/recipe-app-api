@@ -3,7 +3,14 @@
   "black-formatter.args": [
     "-S",
     "--line-length",
-    "88"
+    "91"
   ],
   "editor.formatOnSave": true,
+  "flake8.importStrategy": "fromEnvironment",
+  "flake8.args": [
+    "--toml-config=${workspaceFolder}/pyproject.toml"
+  ],
+  "flake8.path": [
+    "flake8p"
+  ]
 }
