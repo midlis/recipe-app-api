@@ -1,3 +1,8 @@
 {
-  "hg.enabled": false
+  "hg.enabled": false,
+  "black-formatter.args": [
+    "-S",
+    "--line-length",
+    "88"
+  ],
 }
