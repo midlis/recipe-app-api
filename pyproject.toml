@@ -16,3 +16,43 @@ max-line-length = 91
 #extend-ignore = ["E203"]
 # alternative ignore E501=line too long
 # TODO? W503=break after binary operator
+
+[tool.pylint]
+# Specify a list of directories or files to check
+# If not specified, it will check the current directory
+# Note: Pylint will ignore files/dirs matching '**/__init__.py', '**/_*.py', or '**/tests' by default
+# You can override this with the `good-names` setting.
+#paths = [
+#    "app",
+#    "**/tests"
+#]
+
+# Disable specific checks
+disable = [
+    # "C0114",  # Missing module docstring
+    "R0903",  # Too few public methods
+]
+
+# Set a minimum score for the code
+fail-under = 7.0
+
+# Define a maximum line length
+max-line-length = 91
+
+# Allow certain variable names
+good-names = [
+    "i",
+    "j",
+    "k"
+]
+
+# Add additional directories to look for modules.
+# This can be useful for Django projects to find settings or apps.
+init-hook = "import sys; sys.path.append('app')"
+
+ignore-paths = [
+    ".*/migrations",
+    ".venv",
+    ".git",
+    "app/manage.py"
+]
