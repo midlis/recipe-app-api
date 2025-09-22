@@ -12,5 +12,6 @@
   ],
   "flake8.path": [
     "flake8p"
-  ]
+  ],
+  "python.languageServer": "None"
 }

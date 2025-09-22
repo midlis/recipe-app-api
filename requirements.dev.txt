@@ -3,4 +3,7 @@ flake8-pyproject
 black
 pylint
 isort
+basedpyright
+django-stubs
+mypy
 -r requirements.txt

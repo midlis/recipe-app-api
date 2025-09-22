@@ -1,0 +1,9 @@
+{
+    "exclude": [
+        "**/__pycache__",
+        "**/*.pyc",
+        "**/migrations"
+    ],
+    "reportMissingImports": "warning",
+    "reportMissingTypeStubs": false
+}
