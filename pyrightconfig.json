@@ -1,4 +1,12 @@
 {
+    "venvPath": ".",
+    "venv": ".venv",
+    "extraPaths": [
+        "./app"
+    ],
+    "include": [
+        "./app"
+    ],
     "exclude": [
         "**/__pycache__",
         "**/*.pyc",
