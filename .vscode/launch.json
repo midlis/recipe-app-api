@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Django: Test",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "program": "./manage.py",
+            "args": [
+                "test",
+                "--keepdb" // Optional: keeps the test database for faster subsequent runs
+            ],
+            "django": true,
+            "justMyCode": true,
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python Debugger: Django",
             "type": "debugpy",
             "request": "launch",
