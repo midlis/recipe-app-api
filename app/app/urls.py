@@ -33,4 +33,5 @@ urlpatterns = [
     ),
     path('', RedirectView.as_view(url='/api/docs/', permanent=False)),
     path('api/user/', include('user.urls')),
+    path('api/recipe/', include('recipe.urls')),
 ]
