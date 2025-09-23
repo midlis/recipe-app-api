@@ -100,6 +100,6 @@ class PrivateRecipeAPITests(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
-        self.assertEqual(recipe.user, self.user)  ## ??? fixmi
+        self.assertEqual(recipe.user, self.user)
         for k, v in payload.items():
             self.assertEqual(getattr(recipe, k), v)
