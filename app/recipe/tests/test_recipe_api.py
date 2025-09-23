@@ -60,7 +60,7 @@ class PrivateRecipeAPITests(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         recipes = Recipe.objects.all().order_by('-id')
         serialized_recipes = RecipeSerializer(recipes, many=True)
-        self.assertEqual(res.data, serialized_recipes)
+        self.assertEqual(res.data, serialized_recipes.data)
 
     def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user."""
@@ -69,7 +69,7 @@ class PrivateRecipeAPITests(APITestCase):
         create_recipe(user=self.user)
         res = self.client.get(RECIPES_URL)
 
-        user_recipes = Recipe.objects.filter(user=self.user)
-        serialized_recipes = RecipeSerializer(user_recipes)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serialized_recipes)
+        user_recipes = Recipe.objects.filter(user=self.user)
+        serialized_recipes = RecipeSerializer(user_recipes, many=True)
+        self.assertEqual(res.data, serialized_recipes.data)
