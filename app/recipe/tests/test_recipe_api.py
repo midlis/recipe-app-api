@@ -79,7 +79,7 @@ class PrivateRecipeAPITests(APITestCase):
         serialized_recipes = RecipeSerializer(user_recipes, many=True)
         self.assertEqual(res.data, serialized_recipes.data)
 
-    def test_get_recipe_detail(serf):
+    def test_get_recipe_detail(self):
         """Test get recipe details."""
         recipe = create_recipe(user=self.user)
         url = detail_url(recipe.id)
