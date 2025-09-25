@@ -3,7 +3,6 @@ Tests for recipe APIs.
 """
 
 from decimal import Decimal
-from venv import create
 from typing_extensions import override
 from django.contrib.auth import get_user_model
 from django.urls import reverse

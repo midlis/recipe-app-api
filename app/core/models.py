@@ -9,7 +9,6 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-from django.forms import CharField
 
 
 class UserManager(BaseUserManager):
