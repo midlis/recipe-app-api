@@ -9,10 +9,33 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
+
 from core.models import Recipe, Tag, Ingredient
 from . import serializers
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='Comma separated list of IDs to filter',
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='Comma separated list of ingredient IDs to filter',
+            ),
+        ]
+    )
+)
 class RecipeViewSets(viewsets.ModelViewSet):
     """View for manage recipe APIs."""
 
@@ -21,11 +44,24 @@ class RecipeViewSets(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    def _params_to_ints(self, qs):
+        """Convert a list of strings to integers."""
+        return [int(str_id) for str_id in qs.split(',')]
+
     @override
     def get_queryset(self):
         """Retrieve recipes for authenticated user."""
+        tags = self.request.query_params.get('tags')
+        ingredients = self.request.query_params.get('ingredients')
         queryset = self.queryset
-        return queryset.filter(user=self.request.user).order_by('-id')
+        if tags:
+            tag_ids = self._params_to_ints(tags)
+            queryset = queryset.filter(tags__id__in=tag_ids)
+        if ingredients:
+            ingredient_ids = self._params_to_ints(ingredients)
+            queryset = queryset.filter(ingredients__id__in=ingredient_ids)
+
+        return queryset.filter(user=self.request.user).order_by('-id').distinct()
 
     @override
     def get_serializer_class(self):
