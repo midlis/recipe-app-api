@@ -2,6 +2,7 @@
 Views for recipe APIs.
 """
 
+from django.db.models import query
 from typing_extensions import override
 from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
@@ -91,6 +92,18 @@ class RecipeViewSets(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'assigned_only',
+                OpenApiTypes.INT,
+                enum=[0, 1],
+                description='Filter by items assigned to recipes.',
+            ),
+        ]
+    )
+)
 class BaseRecipeAttrViewSet(
     mixins.ListModelMixin,
     mixins.UpdateModelMixin,
@@ -105,7 +118,11 @@ class BaseRecipeAttrViewSet(
     @override
     def get_queryset(self):
         """Filter queryset to authenticated user."""
-        return self.queryset.filter(user=self.request.user).order_by('-name')
+        assigned_only = bool(int(self.request.query_params.get('assigned_only', 0)))
+        filter = {'user': self.request.user}
+        if assigned_only:
+            filter['recipe__isnull'] = False
+        return self.queryset.filter(**filter).order_by('-name').distinct()
 
 
 class TagViewSet(BaseRecipeAttrViewSet):
