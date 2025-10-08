@@ -2,7 +2,6 @@
 Views for recipe APIs.
 """
 
-from django.db.models import query
 from typing_extensions import override
 from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
